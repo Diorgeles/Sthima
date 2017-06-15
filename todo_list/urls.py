@@ -3,5 +3,6 @@ from .views import *
 urlpatterns = [
     url(r'^', todo_list, name='todo_list'),
     url(r'^delete_item/$', item_delete, name='item_delete'),
+    url(r'^save_nova_ordem/$', todo_list),
 
 ]

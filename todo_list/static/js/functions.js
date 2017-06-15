@@ -1,14 +1,25 @@
 $(document).ready(function () {
-    $( "tbody" ).sortable({
-        helper: fixWidthHelper
+    $("tbody").sortable({        
+        helper: fixWidthHelper,
+        update: function (event, ui) {            
+            // var data = $(this).sortable("toArray", {attribute: 'name'});
+            var table = $("table").tableToJSON();
+            // alert(JSON.stringify(table))
+            $.ajax({
+                data: { csrfmiddlewaretoken: $.cookie('csrftoken'), item: JSON.stringify(table) },
+                type: 'POST',
+                url: '/todolist/save_nova_ordem/'
+            });
+        }
     }).disableSelection();
 
     function fixWidthHelper(e, ui) {
-        ui.children().each(function() {
+        ui.children().each(function () {
             $(this).width($(this).width());
         });
         return ui;
     }
+
     $('#item_edite').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var cod_item = button.data('item');
@@ -50,19 +61,24 @@ $(document).ready(function () {
 
 
     $(".delete_item").click(function () {
-        $.ajax({
-            type: 'POST',
-            data: { csrfmiddlewaretoken: $.cookie('csrftoken'), cod_item: $(this).data('item'), btn_item_delete: '' },
-            url: "/todolist/delete_item/",
-            dataType: "text",
-            beforeSend: function () {
-                msg_delete_item();
-            },
-            success: function (data) {                
-                location.href = data;
-            },
-            error: function () {
-                msg_erro();
+        var cod_item = $(this).data('item')
+        BootstrapDialog.confirm('Certeza que deseja excluir esta tarefa?', function (result) {
+            if (result) {
+                $.ajax({
+                    type: 'POST',
+                    data: { csrfmiddlewaretoken: $.cookie('csrftoken'), cod_item: cod_item, btn_item_delete: '' },
+                    url: "/todolist/delete_item/",
+                    dataType: "text",
+                    beforeSend: function () {
+                        msg_delete_item();
+                    },
+                    success: function (data) {
+                        location.href = data;
+                    },
+                    error: function () {
+                        msg_erro();
+                    }
+                });
             }
         });
     });

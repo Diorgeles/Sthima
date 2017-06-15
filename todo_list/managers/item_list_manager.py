@@ -11,5 +11,4 @@ class Item_list_manager(models.Manager):
         return self.get_queryset().filter(cod_item=cod_item).update(nm_item=nm_item, descricao=descricao, sn_feito=sn_feito)
 
     def Delete(self, cod_item):
-        print(cod_item)
         return self.get_queryset().filter(cod_item=cod_item).delete()
