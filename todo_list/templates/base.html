@@ -1,0 +1,36 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock title %} To-do list</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap-dialog.css' %}" media="screen" />
+        <link rel="stylesheet" href="{% static 'css/custom.min.css' %}" media="screen" />
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}" media="screen" /> 
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" media="screen" /> 
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{% url 'todolist:todo_list' %}" class="navbar-brand">To-do List</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="container box-central">
+            {% block container %}{% endblock container %}
+        </div>
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-dialog.js' %}"></script>
+        <script src="{% static 'js/functions.js' %}"></script>
+        <script src="{% static 'js/jquery.cookie.js' %}"></script>
+        <script src="{% static 'js/jquery-ui.js' %}"></script>
+    </body>
+</html>

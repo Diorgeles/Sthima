@@ -1,0 +1,23 @@
+<div class="modal fade" id="item_novo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Nova tarefa</h4>
+            </div>
+            <form method="post">{% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nm_item" class="control-label">Nome</label>
+                        <input type="text" class="form-control" id="nm_item" name="nm_item" required>
+                        <label for="descricao" class="control-label">Descrição</label>
+                        <textarea type="text" rows="3" class="form-control" id="descricao" name="descricao"></textarea>
+                    </div>          
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning" name="btn_modal_grupo_novo">Salvar</button>
+                </div>
+            </form>                
+        </div>
+    </div>
+</div>
