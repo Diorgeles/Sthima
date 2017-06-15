@@ -11,6 +11,43 @@ Escrita em:
   * Python 3.5.2
   * Django 1.11.1
 
+# Instalação
+
+Clone o projeto
+
+
+```shell
+
+$ git clone git@github.com:Diorgeles/Sthima.git
+
+```
+
+Instale os pacotes necessários
+
+
+```shell
+
+$ pip install -r requirements.txt
+
+```
+
+Execute as migrations
+
+
+```shell
+
+$ python manage.py migrate 
+
+```
+
+Crie um superusuario
+
+```shell
+
+$ python manage.py createsuperuser 
+
+```
+
 # Forma de uso
 
 - Para cadastrar uma tarefa basta clicar no button na parte superior da tela
