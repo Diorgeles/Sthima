@@ -32,9 +32,10 @@ def todo_list(request):
 
         O cache serve para salvar a posição atual da lista de tarefas,
         como o usuário pode muda-la dinamicamente fiz tal solução 
-        para resoler o problema.
-    """
-    if len(request.session.get('ordem_atual')):
+        para resoler o problema, porem não vinculei ao codigo pois a solução 
+        não conseguiu passar em todos os meus testes dentro das 24h
+
+        if request.session.get('ordem_atual') != None:
         itens_list = []
         ordem_salva = request.session.get('ordem_atual')        
         for i in ordem_salva:
@@ -43,11 +44,12 @@ def todo_list(request):
                     {'cod_item': item.cod_item, 'nm_item': item.nm_item, 
                     'descricao': item.descricao, 'sn_feito': item.sn_feito})
 
-    else:
-        itens_list = Item_list.objects.all()
+    """
+    
+    itens_list = Item_list.objects.all()
     if request.method == 'POST':
         if 'btn_modal_grupo_novo' in request.POST:
-            item_insert(request.POST['nm_item'], request.POST['descricao'])
+            item_insert(request.POST['nm_item'], request.POST['descricao'])            
             return HttpResponseRedirect(reverse('todolist:todo_list'))
 
         elif 'btn_modal_grupo_edite' in request.POST:
@@ -58,14 +60,5 @@ def todo_list(request):
 
         elif 'btn_item_delete' in request.POST:
             item_delete(request.POST['cod_item'])
-            return HttpResponse(reverse('todolist:todo_list'))
-        else:
-            # A cada mudança de ordenação eu mando uma requisição ajax informando 
-            # a nova ordem da lista, caso o usuário recarregue a pagina a lista não 
-            # perderá a ultima posição
-            ordem = []
-            if len(json.loads(request.POST['item'])):
-                for i in json.loads(request.POST['item']):
-                    ordem.append(i["#"])
-                request.session['ordem_atual'] = ordem
+            return HttpResponse(reverse('todolist:todo_list'))       
     return render(request, 'todo_list.html', locals())
